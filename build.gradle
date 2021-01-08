@@ -42,11 +42,13 @@ dependencies {
     
     testCompile("junit:junit")
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.1.6.RELEASE'
+    // https://mvnrepository.com/artifact/org.jacoco/org.jacoco.agent //DP ajout
+    testCompile group: 'org.jacoco', name: 'org.jacoco.agent', version: '0.8.6'
 }
 
 
 jacoco {
-    toolVersion = "0.8.4"
+    toolVersion = "0.8.6"
 }
 
 jacocoTestReport {

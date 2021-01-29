@@ -65,7 +65,7 @@ public class TourGuideService {
 
 	/**
 	 * DP : TODO 2
-	 * @return
+	 * @return user current locations
 	 */
 	public List<UserCurrentLocation> getAllCurrentLocations(){
 		List<UserCurrentLocation> userCurrentLocations = new ArrayList<>();

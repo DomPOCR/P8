@@ -21,6 +21,7 @@ import gpsUtil.location.Attraction;
 import gpsUtil.location.Location;
 import gpsUtil.location.VisitedLocation;
 import tourGuide.helper.InternalTestHelper;
+import tourGuide.model.UserCurrentLocation;
 import tourGuide.tracker.Tracker;
 import tourGuide.model.User;
 import tourGuide.model.UserReward;
@@ -35,7 +36,8 @@ public class TourGuideService {
 	private final TripPricer tripPricer = new TripPricer();
 	public final Tracker tracker;
 	boolean testMode = true;
-	
+	private List<UserReward> userRewards;
+
 	public TourGuideService(GpsUtil gpsUtil, RewardsService rewardsService) {
 		this.gpsUtil = gpsUtil;
 		this.rewardsService = rewardsService;
@@ -59,6 +61,24 @@ public class TourGuideService {
 			user.getLastVisitedLocation() :
 			trackUserLocation(user);
 		return visitedLocation;
+	}
+
+	/**
+	 * DP : TODO 2
+	 * @return
+	 */
+	public List<UserCurrentLocation> getAllCurrentLocations(){
+		List<UserCurrentLocation> userCurrentLocations = new ArrayList<>();
+		List<User> userList = getAllUsers();
+		for (User user : userList) {
+
+			VisitedLocation lastVisitedLocation = user.getLastVisitedLocation();
+			Location location = new Location(lastVisitedLocation.location.latitude,lastVisitedLocation.location.longitude);
+			UserCurrentLocation userCurrentLocation = new UserCurrentLocation(user.getUserId(),location);
+			userCurrentLocations.add(userCurrentLocation);
+		}
+
+		return userCurrentLocations;
 	}
 
 	public User getUser(String userName) {

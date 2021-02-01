@@ -68,6 +68,7 @@ public class TourGuideService {
 	 * @return user current locations
 	 */
 	public List<UserCurrentLocation> getAllCurrentLocations(){
+
 		List<UserCurrentLocation> userCurrentLocations = new ArrayList<>();
 		List<User> userList = getAllUsers();
 		for (User user : userList) {
@@ -77,7 +78,6 @@ public class TourGuideService {
 			UserCurrentLocation userCurrentLocation = new UserCurrentLocation(user.getUserId(),location);
 			userCurrentLocations.add(userCurrentLocation);
 		}
-
 		return userCurrentLocations;
 	}
 

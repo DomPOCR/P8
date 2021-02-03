@@ -16,6 +16,7 @@ public class UserPreferences {
 	private int ticketQuantity = 1;
 	private int numberOfAdults = 1;
 	private int numberOfChildren = 0;
+	private int numberOfProposalAttraction = 5;   // DP
 	
 	public UserPreferences() {
 	}
@@ -27,7 +28,15 @@ public class UserPreferences {
 	public int getAttractionProximity() {
 		return attractionProximity;
 	}
-	
+
+	public CurrencyUnit getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(CurrencyUnit currency) {
+		this.currency = currency;
+	}
+
 	public Money getLowerPricePoint() {
 		return lowerPricePoint;
 	}
@@ -76,4 +85,11 @@ public class UserPreferences {
 		this.numberOfChildren = numberOfChildren;
 	}
 
+	public int getNumberOfProposalAttraction() {
+		return numberOfProposalAttraction;
+	}
+
+	public void setNumberOfProposalAttraction(int numberOfProposalAttraction) {
+		this.numberOfProposalAttraction = numberOfProposalAttraction;
+	}
 }

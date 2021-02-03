@@ -22,6 +22,7 @@ import tourGuide.model.User;
 import tripPricer.Provider;
 
 public class TestTourGuideService {
+//TODO Before each
 
 	@Test
 	public void getUserLocation() {

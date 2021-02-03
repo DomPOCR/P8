@@ -14,6 +14,7 @@ import com.jsoniter.output.JsonStream;
 
 import gpsUtil.location.VisitedLocation;
 import tourGuide.model.UserCurrentLocation;
+import tourGuide.model.UserNearestAttractions;
 import tourGuide.service.TourGuideService;
 import tourGuide.model.User;
 import tripPricer.Provider;
@@ -51,20 +52,21 @@ public class TourGuideController {
         // The distance in miles between the user's location and each of the attractions.
         // The reward points for visiting each Attraction.
         //    Note: Attraction reward points can be gathered from RewardsCentral
+    // DP :
 
-    /**@RequestMapping("/getNearbyAttractions")
-    public String getNearbyAttractions(@RequestParam String userName) {
-
-        return null;
+    @RequestMapping("/getNearbyAttractions")
+    public List<UserNearestAttractions> getNearbyAttractions(@RequestParam String userName) {
+        VisitedLocation visitedLocation = tourGuideService.getUserLocation(getUser(userName));
+        return tourGuideService.getClosestAttractions(visitedLocation,getUser(userName));
     }
 
-    /*** OLD VERSION ***/
+    /*** OLD VERSION
     @RequestMapping("/getNearbyAttractions")
     public String getNearbyAttractions(@RequestParam String userName) {
     	VisitedLocation visitedLocation = tourGuideService.getUserLocation(getUser(userName));
     	return JsonStream.serialize(tourGuideService.getNearByAttractions(visitedLocation));
     }
-    /***/
+    ***/
     
     @RequestMapping("/getRewards") 
     public String getRewards(@RequestParam String userName) {
@@ -88,21 +90,14 @@ public class TourGuideController {
      * @return all user current locations
      */
 
-    @RequestMapping("/getAllCurrentLocationsV1")
-    public List<UserCurrentLocation> getAllCurrentLocationsV1(){
-        logger.info("getAllCurrentLocations V1: OK");
+    @RequestMapping("/getAllCurrentLocations")
+    public List<UserCurrentLocation> getAllCurrentLocations(){
+        logger.info("getAllCurrentLocations OK");
         return tourGuideService.getAllCurrentLocations();
 
     }
 
-    @RequestMapping("/getAllCurrentLocationsV2")
-    public String getAllCurrentLocationsV2(){
-        logger.info("getAllCurrentLocations V2: OK");
-        List<UserCurrentLocation> userCurrentLocations =  tourGuideService.getAllCurrentLocations();
-        return JsonStream.serialize(userCurrentLocations);
-    }
-
-    @RequestMapping("/getTripDeals")
+       @RequestMapping("/getTripDeals")
     public String getTripDeals(@RequestParam String userName) {
     	List<Provider> providers = tourGuideService.getTripDeals(getUser(userName));
     	return JsonStream.serialize(providers);

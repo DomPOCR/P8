@@ -7,12 +7,13 @@ import java.util.UUID;
 public class UserCurrentLocation {
 
     private UUID userId;
-    private Location userLocations;
+    private double longitude;
+    private double latitude;
 
-
-    public UserCurrentLocation(UUID userId, Location visitedLocations) {
+    public UserCurrentLocation(UUID userId, double longitude, double latitude) {
         this.userId = userId;
-        this.userLocations = visitedLocations;
+        this.longitude = longitude;
+        this.latitude = latitude;
     }
 
     public UUID getUserId() {
@@ -23,11 +24,19 @@ public class UserCurrentLocation {
         this.userId = userId;
     }
 
-    public Location getUserLocations() {
-        return userLocations;
+    public double getLongitude() {
+        return longitude;
     }
 
-    public void setUserLocations(Location userLocations) {
-        this.userLocations = userLocations;
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
     }
 }

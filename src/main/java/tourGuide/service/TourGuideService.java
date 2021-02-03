@@ -100,6 +100,7 @@ public class TourGuideService {
     }
 
     public VisitedLocation trackUserLocation(User user) {
+
         logger.debug("trackUserLocation start " + user.getUserName());
 
         VisitedLocation visitedLocation = gpsUtil.getUserLocation(user.getUserId());
@@ -121,6 +122,8 @@ public class TourGuideService {
      */
     public List<UserNearestAttractions> getClosestAttractions(VisitedLocation visitedLocation, User user) {
 
+        logger.debug("getClosestAttractions start " + user.getUserName());
+
         List<Attraction> attractions = gpsUtil.getAttractions();
         List<UserNearestAttractions> userNearestAttractionsList = attractions.parallelStream()
                 .map(a -> new UserNearestAttractions(
@@ -137,6 +140,8 @@ public class TourGuideService {
         List<UserNearestAttractions> userNearestAttractionsResult = userNearestAttractionsList.parallelStream()
                 .limit(user.getUserPreferences().getNumberOfProposalAttraction())
                 .collect(Collectors.toList());
+
+        logger.debug("getClosestAttractions end " + user.getUserName());
 
         return userNearestAttractionsResult;
     }
@@ -176,7 +181,6 @@ public class TourGuideService {
             String email = userName + "@tourGuide.com";
             User user = new User(UUID.randomUUID(), userName, phone, email);
             generateUserLocationHistory(user);
-
             internalUserMap.put(userName, user);
         });
         logger.debug("Created " + InternalTestHelper.getInternalUserNumber() + " internal test users.");

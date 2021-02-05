@@ -7,6 +7,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import org.apache.commons.lang3.time.StopWatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -59,10 +60,10 @@ public class TourGuideService {
     }
 
     /**
-     * DP : TODO 2
-     *
-     * @return user current locations
+     * @param
+     * @return all user current locations
      */
+
     public List<UserCurrentLocation> getAllCurrentLocations() {
 
         List<UserCurrentLocation> userCurrentLocations = new ArrayList<>();
@@ -99,6 +100,12 @@ public class TourGuideService {
         return providers;
     }
 
+    /**
+     *
+     * @param user
+     * @return visitedLocation
+     */
+
     public VisitedLocation trackUserLocation(User user) {
 
         logger.debug("trackUserLocation start " + user.getUserName());
@@ -113,7 +120,7 @@ public class TourGuideService {
     }
 
     /**
-     * DP TODO 1
+     * DP
      * list the nearby attraction for the user. The number of attraction is a user's preference
      *
      * @param visitedLocation
@@ -125,6 +132,10 @@ public class TourGuideService {
         logger.debug("getClosestAttractions start " + user.getUserName());
 
         List<Attraction> attractions = gpsUtil.getAttractions();
+
+        StopWatch watch = new StopWatch();
+        watch.start();
+
         List<UserNearestAttractions> userNearestAttractionsList = attractions.parallelStream()
                 .map(a -> new UserNearestAttractions(
                                 a.attractionName,
@@ -141,11 +152,14 @@ public class TourGuideService {
                 .limit(user.getUserPreferences().getNumberOfProposalAttraction())
                 .collect(Collectors.toList());
 
+        watch.stop();
+        logger.debug("Time elapsed : " + watch.getTime());
         logger.debug("getClosestAttractions end " + user.getUserName());
 
         return userNearestAttractionsResult;
     }
 
+    /*** OLD METHODE NOT USED
     public List<Attraction> getNearByAttractions(VisitedLocation visitedLocation) {
         List<Attraction> nearbyAttractions = new ArrayList<>();
         for (Attraction attraction : gpsUtil.getAttractions()) {
@@ -155,6 +169,7 @@ public class TourGuideService {
         }
         return nearbyAttractions;
     }
+    **/
 
     private void addShutDownHook() {
         Runtime.getRuntime().addShutdownHook(new Thread() {

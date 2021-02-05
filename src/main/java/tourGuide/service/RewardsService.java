@@ -9,8 +9,8 @@ import gpsUtil.location.Attraction;
 import gpsUtil.location.Location;
 import gpsUtil.location.VisitedLocation;
 import rewardCentral.RewardCentral;
-import tourGuide.user.User;
-import tourGuide.user.UserReward;
+import tourGuide.model.User;
+import tourGuide.model.UserReward;
 
 @Service
 public class RewardsService {
@@ -55,11 +55,11 @@ public class RewardsService {
 		return getDistance(attraction, location) > attractionProximityRange ? false : true;
 	}
 	
-	private boolean nearAttraction(VisitedLocation visitedLocation, Attraction attraction) {
+	public boolean nearAttraction(VisitedLocation visitedLocation, Attraction attraction) {
 		return getDistance(attraction, visitedLocation.location) > proximityBuffer ? false : true;
 	}
 	
-	private int getRewardPoints(Attraction attraction, User user) {
+	public int getRewardPoints(Attraction attraction, User user) {
 		return rewardsCentral.getAttractionRewardPoints(attraction.attractionId, user.getUserId());
 	}
 	

@@ -7,11 +7,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import gpsUtil.GpsUtil;
-import gpsUtil.location.Attraction;
 import gpsUtil.location.VisitedLocation;
 
 import rewardCentral.RewardCentral;
@@ -22,6 +20,7 @@ import tourGuide.model.UserNearestAttractions;
 import tourGuide.service.RewardsService;
 import tourGuide.service.TourGuideService;
 import tourGuide.model.User;
+
 import tripPricer.Provider;
 
 public class TestTourGuideService {
@@ -180,6 +179,4 @@ public class TestTourGuideService {
 		//assertEquals(10, providers.size());
 		assertEquals(5, providers.size()); //getprice ne retourne que 5 providers
 	}
-	
-	
 }

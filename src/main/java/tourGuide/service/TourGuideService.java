@@ -188,17 +188,18 @@ public class TourGuideService {
     public UserPreferencesDTO getUserPreference(String userName) {
 
         User user = getUser(userName);
+        UserPreferences userPreferences = user.getUserPreferences();
 
         UserPreferencesDTO userPreferenceDTO = new UserPreferencesDTO(
-                user.getUserPreferences().getAttractionProximity(),
-                user.getUserPreferences().getCurrency().getCurrencyCode(),
-                user.getUserPreferences().getLowerPricePoint().getNumber().doubleValue(),
-                user.getUserPreferences().getHighPricePoint().getNumber().doubleValue(),
-                user.getUserPreferences().getTripDuration(),
-                user.getUserPreferences().getTicketQuantity(),
-                user.getUserPreferences().getNumberOfAdults(),
-                user.getUserPreferences().getNumberOfChildren(),
-                user.getUserPreferences().getNumberOfProposalAttraction()
+                userPreferences.getAttractionProximity(),
+                userPreferences.getCurrency().getCurrencyCode(),
+                userPreferences.getLowerPricePoint().getNumber().doubleValue(),
+                userPreferences.getHighPricePoint().getNumber().doubleValue(),
+                userPreferences.getTripDuration(),
+                userPreferences.getTicketQuantity(),
+                userPreferences.getNumberOfAdults(),
+                userPreferences.getNumberOfChildren(),
+                userPreferences.getNumberOfProposalAttraction()
         );
         return userPreferenceDTO;
     }
@@ -209,14 +210,15 @@ public class TourGuideService {
      * @param userPreferences
      * @return the user's preferences updated
      */
-    public UserPreferences setUserPreference(String userName, UserPreferencesDTO userPreferences){
+    public UserPreferencesDTO setUserPreference(String userName, UserPreferencesDTO userPreferences){
 
-        UserPreferences userPreferencesResult = new UserPreferences();
         User user = getUser(userName);
 
         CurrencyUnit currency = Monetary.getCurrency(userPreferences.getCurrency());
         Money lowerPricePoint = Money.of(userPreferences.getLowerPricePoint(), currency);
         Money highPricePoint = Money.of(userPreferences.getHighPricePoint(), currency);
+
+        UserPreferences userPreferencesResult = new UserPreferences();
 
         userPreferencesResult.setAttractionProximity(userPreferences.getAttractionProximity());
         userPreferencesResult.setCurrency(currency);
@@ -225,11 +227,12 @@ public class TourGuideService {
         userPreferencesResult.setTripDuration(userPreferences.getTripDuration());
         userPreferencesResult.setTicketQuantity(userPreferences.getTicketQuantity());
         userPreferencesResult.setNumberOfAdults(userPreferences.getNumberOfAdults());
+        userPreferencesResult.setNumberOfChildren(userPreferences.getNumberOfChildren());
         userPreferencesResult.setNumberOfProposalAttraction(userPreferences.getNumberOfProposalAttraction());
 
         user.setUserPreferences(userPreferencesResult);
 
-        return userPreferencesResult;
+        return userPreferences;
     }
     private void addShutDownHook() {
         Runtime.getRuntime().addShutdownHook(new Thread() {

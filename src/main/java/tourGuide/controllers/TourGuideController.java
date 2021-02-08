@@ -115,7 +115,7 @@ public class TourGuideController {
      * @throws UserPreferenceEmptyException
      */
     @PostMapping("/setUserPreference")
-    public UserPreferences setUserPreference(@RequestParam String userName, @RequestBody UserPreferencesDTO userPreference) throws UserNameNotFoundException, UserPreferenceEmptyException {
+    public UserPreferencesDTO setUserPreference(@RequestParam String userName, @RequestBody UserPreferencesDTO userPreference) throws UserNameNotFoundException, UserPreferenceEmptyException {
         if (tourGuideService.getUser(userName) == null ) {
             String message = " this username does not exist : "+ userName;
             logger.error(message);
@@ -126,9 +126,10 @@ public class TourGuideController {
             logger.error(message);
             throw new UserPreferenceEmptyException(message);
         }
-
+        logger.info("setUserPreference OK");
         return tourGuideService.setUserPreference(userName,userPreference);
     }
+
     private User getUser(String userName) {
         return tourGuideService.getUser(userName);
     }

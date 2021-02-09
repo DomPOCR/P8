@@ -21,6 +21,27 @@ public class UserPreferences {
     public UserPreferences() {
     }
 
+    public UserPreferences(int attractionProximity,
+                           CurrencyUnit currency,
+                           Money lowerPricePoint,
+                           Money highPricePoint,
+                           int tripDuration,
+                           int ticketQuantity,
+                           int numberOfAdults,
+                           int numberOfChildren,
+                           int numberOfProposalAttraction) {
+
+        this.attractionProximity = attractionProximity;
+        this.currency = currency;
+        this.lowerPricePoint = lowerPricePoint;
+        this.highPricePoint = highPricePoint;
+        this.tripDuration = tripDuration;
+        this.ticketQuantity = ticketQuantity;
+        this.numberOfAdults = numberOfAdults;
+        this.numberOfChildren = numberOfChildren;
+        this.numberOfProposalAttraction = numberOfProposalAttraction;
+    }
+
     public void setAttractionProximity(int attractionProximity) {
         this.attractionProximity = attractionProximity;
     }

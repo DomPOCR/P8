@@ -1,4 +1,4 @@
-package tourGuide;
+package tourGuide.IT;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -23,7 +23,7 @@ import tourGuide.model.User;
 
 import tripPricer.Provider;
 
-public class TestTourGuideService {
+public class TestTourGuideServiceIT {
 
 
 	@Test

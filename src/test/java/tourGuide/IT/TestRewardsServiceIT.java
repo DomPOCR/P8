@@ -1,4 +1,4 @@
-package tourGuide;
+package tourGuide.IT;
 
 import static org.junit.Assert.*;
 

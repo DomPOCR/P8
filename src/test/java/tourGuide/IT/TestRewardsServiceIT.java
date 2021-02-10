@@ -19,7 +19,7 @@ import tourGuide.service.TourGuideService;
 import tourGuide.model.User;
 import tourGuide.model.UserReward;
 
-public class TestRewardsService {
+public class TestRewardsServiceIT {
 
 	@Test
 	public void userGetRewards() {

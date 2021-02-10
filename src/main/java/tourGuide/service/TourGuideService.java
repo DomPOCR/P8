@@ -73,6 +73,7 @@ public class TourGuideService {
 
     public List<UserCurrentLocation> getAllCurrentLocations() {
 
+        logger.info("getAllCurrentLocations started");
         List<UserCurrentLocation> userCurrentLocations = new ArrayList<>();
         List<User> userList = getAllUsers();
         for (User user : userList) {
@@ -82,6 +83,7 @@ public class TourGuideService {
             UserCurrentLocation userCurrentLocation = new UserCurrentLocation(user.getUserId(), location.longitude, location.latitude);
             userCurrentLocations.add(userCurrentLocation);
         }
+        logger.info("getAllCurrentLocations ended");
         return userCurrentLocations;
     }
 
@@ -100,24 +102,18 @@ public class TourGuideService {
     }
 
     public List<Provider> getTripDeals(User user) {
+
+        logger.info("getTripDeals started");
+
         int cumulatativeRewardPoints = user.getUserRewards().stream().mapToInt(i -> i.getRewardPoints()).sum();
         List<Provider> providers = tripPricer.getPrice(tripPricerApiKey, user.getUserId(), user.getUserPreferences().getNumberOfAdults(),
                 user.getUserPreferences().getNumberOfChildren(), user.getUserPreferences().getTripDuration(), cumulatativeRewardPoints);
         user.setTripDeals(providers);
+
+        logger.info("getTripDeals ended");
+
         return providers;
     }
-
-    /*** OLD METHODE NOT USED
-     public List<Attraction> getNearByAttractions(VisitedLocation visitedLocation) {
-     List<Attraction> nearbyAttractions = new ArrayList<>();
-     for (Attraction attraction : gpsUtil.getAttractions()) {
-     if (rewardsService.isWithinAttractionProximity(attraction, visitedLocation.location)) {
-     nearbyAttractions.add(attraction);
-     }
-     }
-     return nearbyAttractions;
-     }
-     **/
 
     /**
      * @param user
@@ -133,7 +129,6 @@ public class TourGuideService {
         rewardsService.calculateRewards(user);
 
         logger.debug("trackUserLocation end " + user.getUserName());
-
         return visitedLocation;
     }
 
@@ -187,6 +182,7 @@ public class TourGuideService {
      */
     public UserPreferencesDTO getUserPreference(String userName) {
 
+        logger.info("getUserPreference started");
         User user = getUser(userName);
         UserPreferences userPreferences = user.getUserPreferences();
 
@@ -201,6 +197,7 @@ public class TourGuideService {
                 userPreferences.getNumberOfChildren(),
                 userPreferences.getNumberOfProposalAttraction()
         );
+        logger.info("getUserPreference ended");
         return userPreferenceDTO;
     }
 
@@ -211,6 +208,8 @@ public class TourGuideService {
      * @return the user's preferences updated
      */
     public UserPreferencesDTO setUserPreference(String userName, UserPreferencesDTO userPreferences){
+
+        logger.info("setUserPreference started");
 
         User user = getUser(userName);
 
@@ -232,6 +231,8 @@ public class TourGuideService {
 
         user.setUserPreferences(userPreferencesResult);
 
+        logger.info("setUserPreference ended");
+
         return userPreferences;
     }
     private void addShutDownHook() {
@@ -243,6 +244,7 @@ public class TourGuideService {
     }
 
     private void initializeInternalUsers() {
+
         IntStream.range(0, InternalTestHelper.getInternalUserNumber()).forEach(i -> {
             String userName = "internalUser" + i;
             String phone = "000";

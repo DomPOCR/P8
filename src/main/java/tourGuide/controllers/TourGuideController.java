@@ -17,6 +17,8 @@ import tourGuide.model.*;
 import tourGuide.service.TourGuideService;
 import tripPricer.Provider;
 
+import javax.validation.Valid;
+
 @RestController
 public class TourGuideController {
 
@@ -36,7 +38,7 @@ public class TourGuideController {
      * @return location of userName
      */
     @RequestMapping("/getLocation")
-    public String getLocation(@RequestParam String userName) {
+    public String getLocation(@RequestParam @Valid String userName) {
         VisitedLocation visitedLocation = tourGuideService.getUserLocation(getUser(userName));
         return JsonStream.serialize(visitedLocation.location);
     }
@@ -49,7 +51,7 @@ public class TourGuideController {
      */
     // DP :
     @RequestMapping("/getNearbyAttractions")
-    public List<UserNearestAttractions> getNearbyAttractions(@RequestParam String userName) {
+    public List<UserNearestAttractions> getNearbyAttractions(@RequestParam @Valid String userName) {
         VisitedLocation visitedLocation = tourGuideService.getUserLocation(getUser(userName));
         return tourGuideService.getClosestAttractions(visitedLocation, getUser(userName));
     }
@@ -62,7 +64,7 @@ public class TourGuideController {
      ***/
 
     @RequestMapping("/getRewards")
-    public String getRewards(@RequestParam String userName) {
+    public String getRewards(@RequestParam @Valid String userName) {
         return JsonStream.serialize(tourGuideService.getUserRewards(getUser(userName)));
     }
 
@@ -73,9 +75,8 @@ public class TourGuideController {
 
     @RequestMapping("/getAllCurrentLocations")
     public List<UserCurrentLocation> getAllCurrentLocations() {
-        logger.info("getAllCurrentLocations OK");
-        return tourGuideService.getAllCurrentLocations();
 
+        return tourGuideService.getAllCurrentLocations();
     }
 
     /**
@@ -84,7 +85,7 @@ public class TourGuideController {
      */
 
     @RequestMapping("/getTripDeals")
-    public String getTripDeals(@RequestParam String userName) {
+    public String getTripDeals(@RequestParam @Valid String userName) {
         List<Provider> providers = tourGuideService.getTripDeals(getUser(userName));
         return JsonStream.serialize(providers);
     }
@@ -95,16 +96,13 @@ public class TourGuideController {
      * @throws UserNameNotFoundException
      */
     @RequestMapping("/getUserPreference")
-    public UserPreferencesDTO getUserPreference(@RequestParam String userName) throws UserNameNotFoundException {
+    public UserPreferencesDTO getUserPreference(@RequestParam @Valid String userName) throws UserNameNotFoundException {
 
-        if (tourGuideService.getUser(userName) == null) {
+       if (tourGuideService.getUser(userName) == null) {
             String message = "UserName not found : " + userName;
-            logger.error(message);
             throw new UserNameNotFoundException(message);
         }
-        logger.info("getUserPreference OK");
-        return tourGuideService.getUserPreference(userName);
-
+       return tourGuideService.getUserPreference(userName);
     }
 
     /**
@@ -115,21 +113,16 @@ public class TourGuideController {
      * @throws UserPreferenceEmptyException
      */
     @PostMapping("/setUserPreference")
-    public UserPreferencesDTO setUserPreference(@RequestParam String userName, @RequestBody UserPreferencesDTO userPreference) throws UserNameNotFoundException, UserPreferenceEmptyException {
+    public UserPreferencesDTO setUserPreference(@RequestParam @Valid String userName, @RequestBody UserPreferencesDTO userPreference) throws UserNameNotFoundException, UserPreferenceEmptyException {
 
-        // TODO deplacer test dans le service
-        if (tourGuideService.getUser(userName) == null ) {
+       if (tourGuideService.getUser(userName) == null ) {
             String message = " this username does not exist : "+ userName;
-            logger.error(message);
             throw new UserNameNotFoundException(message);
         }
         if (userPreference == null ) {
             String message = " userPreference is empty  ";
-            logger.error(message);
             throw new UserPreferenceEmptyException(message);
         }
-        // TODO deplacer logger dans le service
-        logger.info("setUserPreference OK");
         return tourGuideService.setUserPreference(userName,userPreference);
     }
 

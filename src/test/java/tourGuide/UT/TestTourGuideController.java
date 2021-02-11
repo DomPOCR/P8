@@ -20,10 +20,9 @@ import tourGuide.model.User;
 import tourGuide.model.UserPreferencesDTO;
 import tourGuide.service.RewardsService;
 import tourGuide.service.TourGuideService;
+import tripPricer.Provider;
 
-import java.util.Date;
-import java.util.Locale;
-import java.util.UUID;
+import java.util.*;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -82,6 +81,8 @@ public class TestTourGuideController {
                 .andDo(print())
                 .andExpect(status().isOk());
     }
+
+    /*****                  USER TEST      *******/
 
     @Test
     public void getUserLocationTest() throws Exception {
@@ -194,7 +195,7 @@ public class TestTourGuideController {
     }
 
     @Test
-    public void setUserPreferenceWithUnknownUser() throws Exception {
+    public void setUserPreferenceWithNonExistingUserTest() throws Exception {
 
         //GIVEN
         User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
@@ -213,5 +214,32 @@ public class TestTourGuideController {
         )
                 .andDo(print())
                 .andExpect(status().isBadRequest());
+    }
+
+    /*****                  TRIP DEAL TEST      *******/
+
+    @Test
+    public void getTripDealsTest() throws Exception {
+
+        //GIVEN
+        User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
+
+        List<Provider> providers = new ArrayList<>();
+        Provider provider1 = new Provider(UUID.randomUUID(),"providerTest1",100.0d);
+        Provider provider2 = new Provider(UUID.randomUUID(),"providerTest2",200.0d);
+
+        providers.add(provider1);
+        providers.add(provider2);
+
+        //WHEN
+        Mockito.when(tourGuideService.getUser(anyString())).thenReturn(user);
+        Mockito.when(tourGuideService.getTripDeals(tourGuideService.getUser(anyString()))).thenReturn(providers);
+
+        //THEN
+        mockMvc.perform(get("/getTripDeals")
+                .param("userName", user.getUserName())
+        )
+                .andDo(print())
+                .andExpect(status().isOk());
     }
 }

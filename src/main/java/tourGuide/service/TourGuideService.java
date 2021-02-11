@@ -87,6 +87,11 @@ public class TourGuideService {
         return userCurrentLocations;
     }
 
+    /**
+     *
+     * @param userName
+     * @return user
+     */
     public User getUser(String userName) {
         return internalUserMap.get(userName);
     }
@@ -101,6 +106,11 @@ public class TourGuideService {
         }
     }
 
+    /**
+     *
+     * @param user
+     * @return list of providers
+     */
     public List<Provider> getTripDeals(User user) {
 
         logger.info("getTripDeals started");
@@ -171,8 +181,6 @@ public class TourGuideService {
 
         return userNearestAttractionsResult;
     }
-
-    // TODO : externaliser dans une classe de test
 
     /**
      * return the list of the user's preference

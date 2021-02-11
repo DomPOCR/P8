@@ -1,19 +1,23 @@
 package tourGuide.UT;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import gpsUtil.GpsUtil;
 import gpsUtil.location.Location;
 import gpsUtil.location.VisitedLocation;
-import org.junit.Ignore;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import org.mockito.Mockito;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+
 import rewardCentral.RewardCentral;
 import tourGuide.helper.InternalTestHelper;
 import tourGuide.model.User;
@@ -98,7 +102,6 @@ public class TestTourGuideController {
         //WHEN
         Mockito.when(tourGuideService.getUserLocation(tourGuideService.getUser(anyString()))).thenReturn(visitedLocationMock);
 
-
         //THEN
         mockMvc.perform(get("/getLocation")
                 .param("userName", user.getUserName())
@@ -107,6 +110,44 @@ public class TestTourGuideController {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    public void getAllCurrentLocationsTest() throws Exception {
+
+        //GIVEN
+        User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
+
+        //WHEN
+        Mockito.when(tourGuideService.getUser(anyString())).thenReturn(user);
+
+        //THEN
+        mockMvc.perform(get("/getAllCurrentLocations")
+                .param("userName", user.getUserName())
+        )
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void getUserNearestAttractionsTest() throws Exception {
+
+        //GIVEN
+        User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
+        Location locationMock = new Location(1.0d, 1.0d);
+        Date date = new Date();
+        date.setTime(System.currentTimeMillis());
+
+        VisitedLocation visitedLocationMock = new VisitedLocation(user.getUserId(), locationMock, date);
+
+        //WHEN
+        Mockito.when(tourGuideService.getUserLocation(tourGuideService.getUser(anyString()))).thenReturn(visitedLocationMock);
+
+        //THEN
+        mockMvc.perform(get("/getNearbyAttractions")
+                .param("userName", user.getUserName())
+        )
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
     @Test
     public void getUserPreferenceWithExistingUserTest() throws Exception {
 
@@ -237,9 +278,29 @@ public class TestTourGuideController {
 
         //THEN
         mockMvc.perform(get("/getTripDeals")
-                .param("userName", user.getUserName())
+               .param("userName", user.getUserName())
         )
-                .andDo(print())
-                .andExpect(status().isOk());
+               .andDo(print())
+               .andExpect(status().isOk());
     }
+
+    /*****                  REWARDS TEST      *******/
+
+    @Test
+    public void getRewardsTest() throws Exception {
+
+        //GIVEN
+        User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
+
+        //WHEN
+        Mockito.when(tourGuideService.getUser(anyString())).thenReturn(user);
+
+        //THEN
+        mockMvc.perform(get("/getRewards")
+               .param("userName", user.getUserName())
+        )
+               .andDo(print())
+               .andExpect(status().isOk());
+    }
+
 }

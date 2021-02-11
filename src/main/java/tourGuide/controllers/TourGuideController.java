@@ -43,6 +43,17 @@ public class TourGuideController {
         return JsonStream.serialize(visitedLocation.location);
     }
 
+    /***
+     * @param
+     * @return all user current locations
+     */
+
+    @RequestMapping("/getAllCurrentLocations")
+    public List<UserCurrentLocation> getAllCurrentLocations() {
+
+        return tourGuideService.getAllCurrentLocations();
+    }
+
     /**
      * list the nearby attraction for the user. The number of attraction is a user's preference
      *
@@ -68,16 +79,7 @@ public class TourGuideController {
         return JsonStream.serialize(tourGuideService.getUserRewards(getUser(userName)));
     }
 
-    /***
-     * @param
-     * @return all user current locations
-     */
 
-    @RequestMapping("/getAllCurrentLocations")
-    public List<UserCurrentLocation> getAllCurrentLocations() {
-
-        return tourGuideService.getAllCurrentLocations();
-    }
 
     /**
      * @param userName

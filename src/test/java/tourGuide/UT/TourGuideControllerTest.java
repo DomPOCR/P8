@@ -36,7 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc(addFilters = false)
-public class TestTourGuideController {
+public class TourGuideControllerTest {
 
     @Autowired
     protected MockMvc mockMvc;

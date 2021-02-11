@@ -1,21 +1,19 @@
 package tourGuide.UT;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import gpsUtil.GpsUtil;
-
 import gpsUtil.location.Location;
 import gpsUtil.location.VisitedLocation;
 import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-
 import rewardCentral.RewardCentral;
 import tourGuide.helper.InternalTestHelper;
 import tourGuide.model.User;
@@ -55,6 +53,13 @@ public class TestTourGuideController {
     private int numberOfChildren = 6;
     private int numberOfProposalAttraction = 7;
 
+    public static String asJsonString(final Object obj) {
+        try {
+            return new ObjectMapper().writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @BeforeEach
     void init() {
@@ -128,10 +133,10 @@ public class TestTourGuideController {
 
         //GIVEN
         User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
-        UserPreferencesDTO userPreferencesDTO = new UserPreferencesDTO( attractionProximity, currency,
-                                                                        lowerPricePoint, highPricePoint,
-                                                                        tripDuration, ticketQuantity,
-                                                                        numberOfAdults, numberOfChildren, numberOfProposalAttraction);
+        UserPreferencesDTO userPreferencesDTO = new UserPreferencesDTO(attractionProximity, currency,
+                lowerPricePoint, highPricePoint,
+                tripDuration, ticketQuantity,
+                numberOfAdults, numberOfChildren, numberOfProposalAttraction);
 
         //WHEN
         Mockito.when(tourGuideService.getUser(anyString())).thenReturn(null);
@@ -149,24 +154,7 @@ public class TestTourGuideController {
     public void setUserPreferenceTest() throws Exception {
 
         //GIVEN
-
         User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
-        UserPreferencesDTO userPreferencesDTO = new UserPreferencesDTO(attractionProximity, currency,
-                lowerPricePoint, highPricePoint,
-                tripDuration, ticketQuantity,
-                numberOfAdults, numberOfChildren, numberOfProposalAttraction);
-
-        String questionBody = "{\n" +
-                "    \"attractionProximity\": 2147483647,\n" +
-                "    \"currency\": \"USD\",\n" +
-                "    \"lowerPricePoint\": 0.0,\n" +
-                "    \"highPricePoint\": 300.0,\n" +
-                "    \"tripDuration\": 1,\n" +
-                "    \"ticketQuantity\": 1,\n" +
-                "    \"numberOfAdults\": 1,\n" +
-                "    \"numberOfChildren\": 0,\n" +
-                "    \"numberOfProposalAttraction\": 2\n" +
-                "}";
 
         //WHEN
         Mockito.when(tourGuideService.getUser(anyString())).thenReturn(user);
@@ -174,26 +162,19 @@ public class TestTourGuideController {
         //THEN
         mockMvc.perform(post("/setUserPreference")
                 .param("userName", user.getUserName())
-                .content(questionBody)
+                .content(asJsonString(new UserPreferencesDTO(
+                        attractionProximity, currency,
+                        lowerPricePoint, highPricePoint,
+                        tripDuration, ticketQuantity,
+                        numberOfAdults, numberOfChildren,
+                        numberOfProposalAttraction)))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-             /*   .param("attractionProximity", String.valueOf(attractionProximity))
-                .param("currency", currency)
-                .param("lowerPricePoint", String.valueOf(lowerPricePoint))
-                .param("highPricePoint", String.valueOf(highPricePoint))
-                .param("tripDuration", String.valueOf(tripDuration))
-                .param("ticketQuantity", String.valueOf(ticketQuantity))
-                .param("numberOfAdults", String.valueOf(numberOfAdults))
-                .param("numberOfChildren", String.valueOf(numberOfChildren))
-                .param("numberOfProposalAttraction", String.valueOf(numberOfProposalAttraction))
-
-              */
         )
                 .andDo(print())
                 .andExpect(status().isOk());
     }
 
-    @Ignore
     @Test
     public void setUserPreferenceWithEmptyUserPreferencesTest() throws Exception {
 
@@ -203,6 +184,29 @@ public class TestTourGuideController {
         //WHEN
         Mockito.when(tourGuideService.getUser(anyString())).thenReturn(user);
         Mockito.when(tourGuideService.getUserPreference(anyString())).thenReturn(null);
+
+        //THEN
+        mockMvc.perform(post("/setUserPreference")
+                .param("userName", user.getUserName())
+        )
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void setUserPreferenceWithUnknownUser() throws Exception {
+
+        //GIVEN
+        User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
+        UserPreferencesDTO userPreferencesDTO = new UserPreferencesDTO(attractionProximity, currency,
+                lowerPricePoint, highPricePoint,
+                tripDuration, ticketQuantity,
+                numberOfAdults, numberOfChildren, numberOfProposalAttraction);
+
+        //WHEN
+        Mockito.when(tourGuideService.getUser(anyString())).thenReturn(null);
+        Mockito.when(tourGuideService.getUserPreference(anyString())).thenReturn(userPreferencesDTO);
+
         //THEN
         mockMvc.perform(post("/setUserPreference")
                 .param("userName", user.getUserName())

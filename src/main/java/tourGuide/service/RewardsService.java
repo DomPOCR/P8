@@ -1,6 +1,7 @@
 package tourGuide.service;
 
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.springframework.stereotype.Service;
 
@@ -37,9 +38,20 @@ public class RewardsService {
 	}
 	
 	public void calculateRewards(User user) {
-		List<VisitedLocation> userLocations = user.getVisitedLocations();
-		List<Attraction> attractions = gpsUtil.getAttractions();
-		
+
+		// List<VisitedLocation> userLocations = user.getVisitedLocations();
+		// List<Attraction> attractions = gpsUtil.getAttractions();
+
+		// DP Mise en place de listes sous la forme de CopyOnWriteArrayList pour figer les listes le temps du calcul des rewards points
+
+		CopyOnWriteArrayList<Attraction> attractions = new CopyOnWriteArrayList<>() ;
+		CopyOnWriteArrayList<VisitedLocation> userLocations = new CopyOnWriteArrayList<>();
+
+		// DP ajout add pour renseigner les listes userLocation et attractions (vides dans le code d'origine)
+		attractions.addAll(gpsUtil.getAttractions());
+		userLocations.addAll(user.getVisitedLocations());
+
+
 		for(VisitedLocation visitedLocation : userLocations) {
 			for(Attraction attraction : attractions) {
 				if(user.getUserRewards().stream().filter(r -> r.attraction.attractionName.equals(attraction.attractionName)).count() == 0) {

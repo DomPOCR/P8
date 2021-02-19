@@ -2,11 +2,9 @@ package tourGuide.IT;
 
 import gpsUtil.GpsUtil;
 import gpsUtil.location.Attraction;
-import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import rewardCentral.RewardCentral;
 import tourGuide.helper.InternalTestHelper;
 import tourGuide.model.UserReward;
@@ -18,7 +16,6 @@ import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class RewardsServiceTestIT {
     private Logger logger = LoggerFactory.getLogger(RewardsServiceTestIT.class);

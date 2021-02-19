@@ -44,8 +44,8 @@ public class RewardsService {
 
 		// DP Mise en place de listes sous la forme de CopyOnWriteArrayList pour figer les listes le temps du calcul des rewards points
 
-		CopyOnWriteArrayList<Attraction> attractions = new CopyOnWriteArrayList<>() ;
-		CopyOnWriteArrayList<VisitedLocation> userLocations = new CopyOnWriteArrayList<>();
+		List<Attraction> attractions = new CopyOnWriteArrayList<>() ;
+		List<VisitedLocation> userLocations = new CopyOnWriteArrayList<>();
 
 		// DP ajout add pour renseigner les listes userLocation et attractions (vides dans le code d'origine)
 		attractions.addAll(gpsUtil.getAttractions());

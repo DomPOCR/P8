@@ -35,10 +35,11 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile group: 'org.javamoney', name: 'moneta', version: '1.3'
 	compile group: 'com.jsoniter', name: 'jsoniter', version: '0.9.23'
-	
+
+    // Libraries move to java code
     compile(name:'gpsUtil', ext:'jar')
-    compile(name:'RewardCentral', ext:'jar')
-    compile(name:'TripPricer', ext:'jar')
+    //compile(name:'RewardCentral', ext:'jar')
+    //compile(name:'TripPricer', ext:'jar')
     
     //testCompile("junit:junit")
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.1.6.RELEASE'

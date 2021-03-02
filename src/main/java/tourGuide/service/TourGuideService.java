@@ -20,6 +20,7 @@ import javax.money.Monetary;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -97,8 +98,9 @@ public class TourGuideService {
     }
 
     public List<User> getAllUsers() {
+        logger.info("getAllUsers started");
         return internalUserMap.values().stream().collect(Collectors.toList());
-    }
+          }
 
     public void addUser(User user) {
         if (!internalUserMap.containsKey(user.getUserName())) {
@@ -176,7 +178,7 @@ public class TourGuideService {
                 .collect(Collectors.toList());
 
         watch.stop();
-        logger.debug("Time elapsed : " + watch.getTime());
+        logger.debug("Time elapsed to get closest attraction : " + watch.getTime(TimeUnit.MILLISECONDS) + " ms");
         logger.debug("getClosestAttractions end " + user.getUserName());
 
         return userNearestAttractionsResult;

@@ -11,6 +11,8 @@ public class RewardCentral {
 
     }
     public int getAttractionRewardPoints(UUID attractionId, UUID userId) {
+
+        // TODO test temps de réponse et suppression ThreadLocalRandom.current().nextInt(1, 1000))
        try {
             TimeUnit.MILLISECONDS.sleep((long) ThreadLocalRandom.current().nextInt(1, 1000));
         } catch (InterruptedException var4) {

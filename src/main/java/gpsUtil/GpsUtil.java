@@ -20,6 +20,9 @@ public class GpsUtil {
     }
 
     public VisitedLocation getUserLocation(UUID userId) {
+
+        // TODO test avec et sans rateLimiter
+
         rateLimiter.acquire();
         this.sleep();
         double longitude = ThreadLocalRandom.current().nextDouble(-180.0D, 180.0D);

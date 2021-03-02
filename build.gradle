@@ -37,10 +37,11 @@ dependencies {
 	compile group: 'com.jsoniter', name: 'jsoniter', version: '0.9.23'
 
     // Libraries move to java code
-    compile(name:'gpsUtil', ext:'jar')
+
+    //compile(name:'gpsUtil', ext:'jar')
     //compile(name:'RewardCentral', ext:'jar')
     //compile(name:'TripPricer', ext:'jar')
-    
+
     //testCompile("junit:junit")
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.1.6.RELEASE'
     testCompile group: 'org.jacoco', name: 'org.jacoco.agent', version: '0.8.6'

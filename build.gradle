@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.6.RELEASE")
+       classpath("org.springframework.boot:spring-boot-gradle-plugin:2.2.1.RELEASE")
     }
 }
 
@@ -44,7 +44,11 @@ dependencies {
 
 
     //testCompile("junit:junit")
-    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.1.6.RELEASE'
+
+    // Junit 5
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.2.1.RELEASE'
     testCompile group: 'org.jacoco', name: 'org.jacoco.agent', version: '0.8.6'
     testCompile group: 'org.jacoco', name: 'org.jacoco.ant', version: '0.8.6'
 
@@ -52,13 +56,14 @@ dependencies {
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
 
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
+
+
 }
 
 test {
     useJUnitPlatform()
     finalizedBy jacocoTestReport
+    /* jvmArgs "--enable-preview" */
 }
 
 jacoco {

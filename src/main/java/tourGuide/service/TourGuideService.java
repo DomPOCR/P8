@@ -140,6 +140,7 @@ public class TourGuideService {
 
         logger.debug("trackUserLocation start " + user.getUserName());
 
+
         VisitedLocation visitedLocation = gpsUtil.getUserLocation(user.getUserId());
         user.addToVisitedLocations(visitedLocation);
         rewardsService.calculateRewards(user);
@@ -162,8 +163,8 @@ public class TourGuideService {
 
         List<Attraction> attractions = gpsUtil.getAttractions();
 
-        StopWatch watch = new StopWatch();
-        watch.start();
+//        StopWatch watch = new StopWatch();
+//        watch.start();
 
         List<UserNearestAttractions> userNearestAttractionsList = attractions.parallelStream()
                 .map(a -> new UserNearestAttractions(
@@ -180,9 +181,9 @@ public class TourGuideService {
         List<UserNearestAttractions> userNearestAttractionsResult = userNearestAttractionsList.parallelStream()
                 .limit(user.getUserPreferences().getNumberOfProposalAttraction())
                 .collect(Collectors.toList());
-
-        watch.stop();
-        logger.debug("Time elapsed to get closest attraction : " + watch.getTime(TimeUnit.MILLISECONDS) + " ms");
+//
+//        watch.stop();
+//        logger.debug("Time elapsed to get closest attraction : " + watch.getTime(TimeUnit.MILLISECONDS) + " ms");
         logger.debug("getClosestAttractions end " + user.getUserName());
 
         return userNearestAttractionsResult;

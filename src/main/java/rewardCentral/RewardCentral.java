@@ -23,16 +23,16 @@ public class RewardCentral {
 
         logger.info("getAttractionRewardPoints started");
 
-        StopWatch stopWatch = new StopWatch();
-        stopWatch.start();
+//        StopWatch stopWatch = new StopWatch();
+//        stopWatch.start();
 //      try {
 //           TimeUnit.MILLISECONDS.sleep((long) ThreadLocalRandom.current().nextInt(1, 1000));
 //        } catch (InterruptedException var4) {
 //        }
 
         int randomInt = ThreadLocalRandom.current().nextInt(1, 1000);
-        stopWatch.stop();
-        logger.debug("Time elapsed to get Attraction Reward Points : " + stopWatch.getTime(TimeUnit.MILLISECONDS) + " ms");
+//        stopWatch.stop();
+//        logger.debug("Time elapsed to get Attraction Reward Points : " + stopWatch.getTime(TimeUnit.MILLISECONDS) + " ms");
         logger.info("getAttractionRewardPoints ended");
         return randomInt;
     }

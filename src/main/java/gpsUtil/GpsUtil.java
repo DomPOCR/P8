@@ -4,6 +4,10 @@ import com.google.common.util.concurrent.RateLimiter;
 import gpsUtil.location.Attraction;
 import gpsUtil.location.Location;
 import gpsUtil.location.VisitedLocation;
+import org.apache.commons.lang3.time.StopWatch;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import tourGuide.tracker.Tracker;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 public class GpsUtil {
 
     private static final RateLimiter rateLimiter = RateLimiter.create(1000.0D);
+    private Logger logger = LoggerFactory.getLogger(Tracker.class);
 
     public GpsUtil() {
     }
@@ -23,13 +28,22 @@ public class GpsUtil {
 
         // TODO test avec et sans rateLimiter
 
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+
         rateLimiter.acquire();
         this.sleep();
+
         double longitude = ThreadLocalRandom.current().nextDouble(-180.0D, 180.0D);
         longitude = Double.parseDouble(String.format("%.6f", longitude));
         double latitude = ThreadLocalRandom.current().nextDouble(-85.05112878D, 85.05112878D);
         latitude = Double.parseDouble(String.format("%.6f", latitude));
         VisitedLocation visitedLocation = new VisitedLocation(userId, new Location(latitude, longitude), new Date());
+
+        stopWatch.stop();
+        logger.debug("getUserLocation Time Elapsed: " + TimeUnit.MILLISECONDS.toSeconds(stopWatch.getTime()) + " seconds.");
+        stopWatch.reset();
+
         return visitedLocation;
     }
 

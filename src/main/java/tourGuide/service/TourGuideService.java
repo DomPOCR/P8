@@ -138,14 +138,14 @@ public class TourGuideService {
 
     public VisitedLocation trackUserLocation(User user) {
 
-        logger.debug("trackUserLocation start " + user.getUserName());
+       // logger.debug("trackUserLocation start " + user.getUserName());
 
 
         VisitedLocation visitedLocation = gpsUtil.getUserLocation(user.getUserId());
         user.addToVisitedLocations(visitedLocation);
         rewardsService.calculateRewards(user);
 
-        logger.debug("trackUserLocation end " + user.getUserName());
+       // logger.debug("trackUserLocation end " + user.getUserName());
         return visitedLocation;
     }
 

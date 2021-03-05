@@ -21,7 +21,7 @@ public class RewardCentral {
 
     public int getAttractionRewardPoints(UUID attractionId, UUID userId) {
 
-        logger.info("getAttractionRewardPoints started");
+        //logger.info("getAttractionRewardPoints started");
 
 //        StopWatch stopWatch = new StopWatch();
 //        stopWatch.start();
@@ -30,10 +30,10 @@ public class RewardCentral {
 //        } catch (InterruptedException var4) {
 //        }
 
-        int randomInt = ThreadLocalRandom.current().nextInt(1, 1000);
+        // int randomInt = ThreadLocalRandom.current().nextInt(1, 1000);
 //        stopWatch.stop();
 //        logger.debug("Time elapsed to get Attraction Reward Points : " + stopWatch.getTime(TimeUnit.MILLISECONDS) + " ms");
-        logger.info("getAttractionRewardPoints ended");
-        return randomInt;
+        //logger.info("getAttractionRewardPoints ended");
+        return ThreadLocalRandom.current().nextInt(1, 1000);
     }
 }

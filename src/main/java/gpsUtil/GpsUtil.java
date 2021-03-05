@@ -28,9 +28,9 @@ public class GpsUtil {
 
         // TODO test avec et sans rateLimiter
 
-//        StopWatch stopWatch = new StopWatch();
-//        stopWatch.start();
-//
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+
         rateLimiter.acquire();
 //DP        this.sleep();
 
@@ -40,9 +40,9 @@ public class GpsUtil {
         latitude = Double.parseDouble(String.format("%.6f", latitude));
         VisitedLocation visitedLocation = new VisitedLocation(userId, new Location(latitude, longitude), new Date());
 
-//        stopWatch.stop();
-//        logger.debug("getUserLocation Time Elapsed: " + TimeUnit.MILLISECONDS.toSeconds(stopWatch.getTime()) + " seconds.");
-//        stopWatch.reset();
+        stopWatch.stop();
+        logger.debug("getUserLocation Time Elapsed: " + TimeUnit.MILLISECONDS.toSeconds(stopWatch.getTime()) + " seconds.");
+        stopWatch.reset();
 
         return visitedLocation;
     }
@@ -80,21 +80,21 @@ public class GpsUtil {
         return attractions;
     }
 
-    private void sleep() {
-        int random = ThreadLocalRandom.current().nextInt(30, 100);
-
-        try {
-            TimeUnit.MILLISECONDS.sleep((long)random);
-        } catch (InterruptedException var3) {
-        }
-
-    }
-
-    private void sleepLighter() {
-        try {
-            TimeUnit.MILLISECONDS.sleep(10L);
-        } catch (InterruptedException var2) {
-        }
-
-    }
+////    private void sleep() {
+////        int random = ThreadLocalRandom.current().nextInt(30, 100);
+////
+////        try {
+////            TimeUnit.MILLISECONDS.sleep((long)random);
+////        } catch (InterruptedException var3) {
+////        }
+////
+////    }
+////
+////    private void sleepLighter() {
+////        try {
+////            TimeUnit.MILLISECONDS.sleep(10L);
+////        } catch (InterruptedException var2) {
+////        }
+//
+//    }
 }

@@ -84,30 +84,4 @@ public class RewardsServiceTestIT {
         assertEquals(userRewards.size(), 1);
     }
 
-    @Ignore
-    @Test
-    public void setProximityBuffer() {
-    }
-
-    @Ignore
-    @Test
-    public void setDefaultProximityBuffer() {
-    }
-
-    @Ignore
-    @Test
-    public void calculateRewards() {
-    }
-
-    @Ignore
-    @Test
-    void getRewardPoints() {
-
-    }
-
-    @Ignore
-    @Test
-    void getDistance() {
-    }
-
 }

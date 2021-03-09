@@ -3,7 +3,6 @@ package tourGuide.IT;
 import gpsUtil.GpsUtil;
 import gpsUtil.location.Attraction;
 import gpsUtil.location.VisitedLocation;
-
 import org.junit.jupiter.api.Test;
 import rewardCentral.RewardCentral;
 import tourGuide.helper.InternalTestHelper;
@@ -11,14 +10,14 @@ import tourGuide.model.*;
 import tourGuide.service.RewardsService;
 import tourGuide.service.TourGuideService;
 import tripPricer.Provider;
+import tripPricer.TripPricer;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class TourGuideServiceTestIT {
 
@@ -80,18 +79,21 @@ public class TourGuideServiceTestIT {
     @Test
     public void getUser() {
 
+        //Initialize required instances
         Locale.setDefault(Locale.US);
         GpsUtil gpsUtil = new GpsUtil();
         RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
         InternalTestHelper.setInternalUserNumber(0);
         TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
 
+        //Add users to service
         User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
 
         tourGuideService.addUser(user);
 
         User userTest = tourGuideService.getUser(user.getUserName());
 
+        //Assert
         assertEquals(user, userTest);
 
     }
@@ -99,22 +101,26 @@ public class TourGuideServiceTestIT {
     @Test
     public void getAllUsers() {
 
+        //Initialize required instances
         Locale.setDefault(Locale.US);
         GpsUtil gpsUtil = new GpsUtil();
         RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
         InternalTestHelper.setInternalUserNumber(0);
         TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
 
+        //Add users to service
         User user1 = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
         User user2 = new User(UUID.randomUUID(), "jon2", "000", "jon2@tourGuide.com");
 
         tourGuideService.addUser(user1);
         tourGuideService.addUser(user2);
 
+        //Get all users
         List<User> allUsers = tourGuideService.getAllUsers();
 
         tourGuideService.tracker.stopTracking();
 
+        //Assert
         assertTrue(allUsers.contains(user1));
         assertTrue(allUsers.contains(user2));
     }
@@ -122,6 +128,7 @@ public class TourGuideServiceTestIT {
     @Test
     public void addUser() {
 
+        //Initialize required instances
         GpsUtil gpsUtil = new GpsUtil();
         RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
         InternalTestHelper.setInternalUserNumber(0);
@@ -130,6 +137,7 @@ public class TourGuideServiceTestIT {
         User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
         User user2 = new User(UUID.randomUUID(), "jon2", "000", "jon2@tourGuide.com");
 
+        //Add users
         tourGuideService.addUser(user);
         tourGuideService.addUser(user2);
 
@@ -138,6 +146,7 @@ public class TourGuideServiceTestIT {
 
         tourGuideService.tracker.stopTracking();
 
+        //Assert
         assertEquals(user, addUser1);
         assertEquals(user2, addUser2);
     }
@@ -172,11 +181,11 @@ public class TourGuideServiceTestIT {
         User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
         VisitedLocation visitedLocation = tourGuideService.trackUserLocation(user);
 
-        List<UserNearestAttractions>userNearestAttractionsList= tourGuideService.getClosestAttractions(visitedLocation,user);
+        List<UserNearestAttractions> userNearestAttractionsList = tourGuideService.getClosestAttractions(visitedLocation, user);
 
         tourGuideService.tracker.stopTracking();
 
-        assertEquals(user.getUserPreferences().getNumberOfProposalAttraction(),userNearestAttractionsList.size());
+        assertEquals(user.getUserPreferences().getNumberOfProposalAttraction(), userNearestAttractionsList.size());
     }
 
     @Test
@@ -240,4 +249,6 @@ public class TourGuideServiceTestIT {
 
         assertEquals(user.getUserId(), visitedLocation.userId);
     }
+
+
 }

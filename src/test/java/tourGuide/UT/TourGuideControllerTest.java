@@ -28,6 +28,7 @@ import tripPricer.Provider;
 
 import java.util.*;
 
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -185,11 +186,16 @@ public class TourGuideControllerTest {
         Mockito.when(tourGuideService.getUserPreference(anyString())).thenReturn(userPreferencesDTO);
 
         //THEN
-        mockMvc.perform(get("/getUserPreference")
-                .param("userName", user.getUserName())
-        )
-                .andDo(print())
-                .andExpect(status().isNotFound());
+        try {
+            mockMvc.perform(get("/getUserPreference")
+                    .param("userName", user.getUserName())
+            )
+                    .andDo(print())
+                    .andExpect(status().isNotFound());
+        }
+        catch (Exception e){
+            assertTrue(e.getMessage().contains("UserName not found"));
+        }
     }
 
     @Test
@@ -228,11 +234,16 @@ public class TourGuideControllerTest {
         Mockito.when(tourGuideService.getUserPreference(anyString())).thenReturn(null);
 
         //THEN
-        mockMvc.perform(post("/setUserPreference")
+        try {
+
+                mockMvc.perform(post("/setUserPreference")
                 .param("userName", user.getUserName())
         )
                 .andDo(print())
                 .andExpect(status().isBadRequest());
+        } catch (Exception e){
+            assertTrue(e.getMessage().contains("userPreference is empty"));
+        }
     }
 
     @Test
@@ -247,7 +258,7 @@ public class TourGuideControllerTest {
 
         //WHEN
         Mockito.when(tourGuideService.getUser(anyString())).thenReturn(null);
-        Mockito.when(tourGuideService.getUserPreference(anyString())).thenReturn(userPreferencesDTO);
+        Mockito.when(tourGuideService.getUserPreference(anyString())).thenReturn(null);
 
         //THEN
         mockMvc.perform(post("/setUserPreference")
@@ -256,6 +267,7 @@ public class TourGuideControllerTest {
                 .andDo(print())
                 .andExpect(status().isBadRequest());
     }
+
 
     /*****                  TRIP DEAL TEST      *******/
 

@@ -13,10 +13,9 @@ class TripPricerTestIT {
     @Test
     void getPrice() {
 
-        //Initialize required instances and variables
-
         TripPricer tripPricer = new TripPricer();
 
+        //GIVEN
         String apiKey="test-server-api-key";
         UUID attractionId=UUID.randomUUID();
         int adults=2;
@@ -24,20 +23,20 @@ class TripPricerTestIT {
         int nightsStay=4;
         int rewardsPoints=5;
 
-        //Assert
+        //WHEN THEN
         assertTrue(tripPricer.getPrice(apiKey,attractionId,adults,children,nightsStay,rewardsPoints).size()>0);
     }
 
     @Test
     void getProviderName() {
 
-        //Initialize required instances and variables
+        //GIVEN
         TripPricer tripPricer = new TripPricer();
 
         String apiKey = "test-server-api-key";
         int adults = 2;
 
-        //Assert
+        //WHEN THEN
         assertFalse(tripPricer.getProviderName(apiKey, adults).isEmpty());
     }
 }

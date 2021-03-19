@@ -16,10 +16,6 @@ public class TripPricer {
         List<Provider> providers = new ArrayList();
         HashSet providersUsed = new HashSet();
 
-     /*   try {
-            TimeUnit.MILLISECONDS.sleep((long) ThreadLocalRandom.current().nextInt(1, 50));
-        } catch (InterruptedException var16) {
-        }*/
 
         for (int i = 0; i < 5; ++i) {
             int multiple = ThreadLocalRandom.current().nextInt(100, 700);

@@ -31,6 +31,8 @@ import tripPricer.Provider;
 import java.util.*;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -185,7 +187,8 @@ public class TourGuideControllerTest {
 
         //WHEN
         Mockito.when(tourGuideService.getUser(anyString())).thenReturn(null);
-        Mockito.when(tourGuideService.getUserPreference(anyString())).thenReturn(userPreferencesDTO);
+        Mockito.when(tourGuideService.getUserPreference(anyString())).thenReturn(null);
+        String message = "UserName not found : " + user.getUserName();
 
         //THEN
         try {
@@ -194,7 +197,8 @@ public class TourGuideControllerTest {
             )
                     .andDo(print())
                     .andExpect(status().isNotFound());
-        }
+            fail(message);
+        }   // TODO Ne passe pas dans le catch ???
         catch (UserNameNotFoundException e){
             assertTrue(e.getMessage().contains("UserName not found"));
         }

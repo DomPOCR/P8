@@ -203,7 +203,7 @@ public class TourGuideServiceTestIT {
 
         UserPreferencesDTO userPreferencesTest = tourGuideService.getUserPreference(user.getUserName());
 
-        assertTrue(!userPreferencesTest.getCurrency().isEmpty());
+        assertFalse(userPreferencesTest.getCurrency().isEmpty());
     }
 
     @Test

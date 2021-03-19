@@ -19,6 +19,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import rewardCentral.RewardCentral;
+import tourGuide.exceptions.UserNameNotFoundException;
+import tourGuide.exceptions.UserPreferenceEmptyException;
 import tourGuide.helper.InternalTestHelper;
 import tourGuide.model.User;
 import tourGuide.model.UserPreferencesDTO;
@@ -193,7 +195,7 @@ public class TourGuideControllerTest {
                     .andDo(print())
                     .andExpect(status().isNotFound());
         }
-        catch (Exception e){
+        catch (UserNameNotFoundException e){
             assertTrue(e.getMessage().contains("UserName not found"));
         }
     }
@@ -241,7 +243,7 @@ public class TourGuideControllerTest {
         )
                 .andDo(print())
                 .andExpect(status().isBadRequest());
-        } catch (Exception e){
+        } catch (UserPreferenceEmptyException e){
             assertTrue(e.getMessage().contains("userPreference is empty"));
         }
     }

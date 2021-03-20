@@ -3,14 +3,20 @@ package tourGuide.IT;
 import gpsUtil.GpsUtil;
 import gpsUtil.location.Attraction;
 import gpsUtil.location.VisitedLocation;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import rewardCentral.RewardCentral;
+import tourGuide.exceptions.UserNameNotFoundException;
 import tourGuide.helper.InternalTestHelper;
 import tourGuide.model.*;
 import tourGuide.service.RewardsService;
 import tourGuide.service.TourGuideService;
 import tripPricer.Provider;
-import tripPricer.TripPricer;
 
 import java.util.Date;
 import java.util.List;
@@ -19,6 +25,7 @@ import java.util.UUID;
 
 import static org.junit.Assert.*;
 
+@SpringBootTest
 public class TourGuideServiceTestIT {
 
     @Test
@@ -219,6 +226,32 @@ public class TourGuideServiceTestIT {
 
         //THEN
         assertFalse(userPreferencesTest.getCurrency().isEmpty());
+    }
+
+    @Ignore // TODO pas d'exception générée
+    @Test
+    public void getUserPreferenceWithNonExistingUser() throws Exception {
+
+        //GIVEN
+        Locale.setDefault(Locale.US);
+        GpsUtil gpsUtil = new GpsUtil();
+        RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
+        InternalTestHelper.setInternalUserNumber(0);
+        TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
+
+        User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com"); User user2 = new User(UUID.randomUUID(), "jon2", "000", "jon@tourGuide.com");
+
+        //WHEN
+
+            tourGuideService.getUser(user.getUserName());
+            try {
+                tourGuideService.getUser(user.getUserName());
+                UserPreferencesDTO userPreferencesTest = tourGuideService.getUserPreference(user.getUserName());
+            }
+            catch (UserNameNotFoundException e) {
+                assertTrue(e.getMessage().contains("UserName not found"));
+
+            }
     }
 
     @Test

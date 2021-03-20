@@ -30,6 +30,7 @@ import tripPricer.Provider;
 
 import java.util.*;
 
+import static org.assertj.core.api.Fail.failBecauseExceptionWasNotThrown;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -153,6 +154,7 @@ public class TourGuideControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk());
     }
+
     @Test
     public void getUserPreferenceWithExistingUserTest() throws Exception {
 
@@ -188,20 +190,13 @@ public class TourGuideControllerTest {
         //WHEN
         Mockito.when(tourGuideService.getUser(anyString())).thenReturn(null);
         Mockito.when(tourGuideService.getUserPreference(anyString())).thenReturn(null);
-        String message = "UserName not found : " + user.getUserName();
 
         //THEN
-        try {
-            mockMvc.perform(get("/getUserPreference")
-                    .param("userName", user.getUserName())
-            )
-                    .andDo(print())
-                    .andExpect(status().isNotFound());
-            fail(message);
-        }   // TODO Ne passe pas dans le catch ???
-        catch (UserNameNotFoundException e){
-            assertTrue(e.getMessage().contains("UserName not found"));
-        }
+        mockMvc.perform(get("/getUserPreference")
+                .param("userName", user.getUserName())
+        )
+                .andDo(print())
+                .andExpect(status().isNotFound());
     }
 
     @Test
@@ -240,16 +235,11 @@ public class TourGuideControllerTest {
         Mockito.when(tourGuideService.getUserPreference(anyString())).thenReturn(null);
 
         //THEN
-        try {
-
-                mockMvc.perform(post("/setUserPreference")
+        mockMvc.perform(post("/setUserPreference")
                 .param("userName", user.getUserName())
         )
                 .andDo(print())
                 .andExpect(status().isBadRequest());
-        } catch (UserPreferenceEmptyException e){
-            assertTrue(e.getMessage().contains("userPreference is empty"));
-        }
     }
 
     @Test
@@ -284,8 +274,8 @@ public class TourGuideControllerTest {
         User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
 
         List<Provider> providers = new ArrayList<>();
-        Provider provider1 = new Provider(UUID.randomUUID(),"providerTest1",100.0d);
-        Provider provider2 = new Provider(UUID.randomUUID(),"providerTest2",200.0d);
+        Provider provider1 = new Provider(UUID.randomUUID(), "providerTest1", 100.0d);
+        Provider provider2 = new Provider(UUID.randomUUID(), "providerTest2", 200.0d);
 
         providers.add(provider1);
         providers.add(provider2);
@@ -296,10 +286,10 @@ public class TourGuideControllerTest {
 
         //THEN
         mockMvc.perform(get("/getTripDeals")
-               .param("userName", user.getUserName())
+                .param("userName", user.getUserName())
         )
-               .andDo(print())
-               .andExpect(status().isOk());
+                .andDo(print())
+                .andExpect(status().isOk());
     }
 
     /*****                  REWARDS TEST      *******/
@@ -315,10 +305,10 @@ public class TourGuideControllerTest {
 
         //THEN
         mockMvc.perform(get("/getRewards")
-               .param("userName", user.getUserName())
+                .param("userName", user.getUserName())
         )
-               .andDo(print())
-               .andExpect(status().isOk());
+                .andDo(print())
+                .andExpect(status().isOk());
     }
 
 }

@@ -44,7 +44,7 @@ public class TourGuideController {
     }
 
     /***
-     * @param
+     *
      * @return all user current locations
      */
 
@@ -75,6 +75,11 @@ public class TourGuideController {
      }
      ***/
 
+    /***
+     *
+     * @param userName
+     * @return User Rewards
+     */
     @RequestMapping("/getRewards")
     public String getRewards(@RequestParam @Valid String userName) {
 

@@ -5,6 +5,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+/***
+ * Gestion de l'exception User not found
+ */
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class UserNameNotFoundException extends Exception {
 

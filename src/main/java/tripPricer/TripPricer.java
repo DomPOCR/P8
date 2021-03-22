@@ -12,6 +12,16 @@ public class TripPricer {
     public TripPricer() {
     }
 
+    /***
+     * Get Provider's Price
+     * @param apiKey
+     * @param attractionId
+     * @param adults
+     * @param children
+     * @param nightsStay
+     * @param rewardsPoints
+     * @return price by provider
+     */
     public List<Provider> getPrice(String apiKey, UUID attractionId, int adults, int children, int nightsStay, int rewardsPoints) {
         List<Provider> providers = new ArrayList();
         HashSet providersUsed = new HashSet();
@@ -38,6 +48,12 @@ public class TripPricer {
         return providers;
     }
 
+    /***
+     *
+     * @param apiKey
+     * @param adults
+     * @return providers's names
+     */
     public String getProviderName(String apiKey, int adults) {
         int multiple = ThreadLocalRandom.current().nextInt(1, 10);
         switch (multiple) {

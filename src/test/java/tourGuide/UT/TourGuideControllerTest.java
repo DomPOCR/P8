@@ -92,7 +92,7 @@ public class TourGuideControllerTest {
                 .andExpect(status().isOk());
     }
 
-    /*****                  USER TEST      *******/
+    /*****                  USER TEST  (GET AND SET)    *******/
 
     @Test
     public void getUserLocationTest() throws Exception {
@@ -265,7 +265,7 @@ public class TourGuideControllerTest {
     }
 
 
-    /*****                  TRIP DEAL TEST      *******/
+    /*****                  TRIP DEAL TEST     *******/
 
     @Test
     public void getTripDealsTest() throws Exception {

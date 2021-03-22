@@ -15,6 +15,7 @@ import tourGuide.model.UserReward;
 
 @Service
 public class RewardsService {
+
     private static final double STATUTE_MILES_PER_NAUTICAL_MILE = 1.15077945;
 
 	// proximity in miles
@@ -23,20 +24,36 @@ public class RewardsService {
 	private int attractionProximityRange = 200;
 	private final GpsUtil gpsUtil;
 	private final RewardCentral rewardsCentral;
-	
+
+	/***
+	 *
+	 * @param gpsUtil
+	 * @param rewardCentral
+	 */
 	public RewardsService(GpsUtil gpsUtil, RewardCentral rewardCentral) {
 		this.gpsUtil = gpsUtil;
 		this.rewardsCentral = rewardCentral;
 	}
-	
+
+	/***
+	 *
+	 * @param proximityBuffer
+	 */
 	public void setProximityBuffer(int proximityBuffer) {
 		this.proximityBuffer = proximityBuffer;
 	}
-	
+
+	/***
+	 *
+	 */
 	public void setDefaultProximityBuffer() {
 		proximityBuffer = defaultProximityBuffer;
 	}
-	
+
+	/***
+	 *
+	 * @param user
+	 */
 	public void calculateRewards(User user) {
 
 		// List<VisitedLocation> userLocations = user.getVisitedLocations();
@@ -63,19 +80,43 @@ public class RewardsService {
 			});
 		});
 	}
-	
+
+	/***
+	 *
+	 * @param attraction
+	 * @param location
+	 * @return distance between user location and attraction
+	 */
 	public boolean isWithinAttractionProximity(Attraction attraction, Location location) {
 		return getDistance(attraction, location) > attractionProximityRange ? false : true;
 	}
-	
+
+	/***
+	 *
+	 * @param visitedLocation
+	 * @param attraction
+	 * @return distance between user location and near visited attraction
+	 */
 	public boolean nearAttraction(VisitedLocation visitedLocation, Attraction attraction) {
 		return getDistance(attraction, visitedLocation.location) > proximityBuffer ? false : true;
 	}
-	
+
+	/***
+	 *
+	 * @param attraction
+	 * @param user
+	 * @return reward attraction points
+	 */
 	public int getRewardPoints(Attraction attraction, User user)  {
 		return rewardsCentral.getAttractionRewardPoints(attraction.attractionId, user.getUserId());
 	}
-	
+
+	/***
+	 *
+	 * @param loc1
+	 * @param loc2
+	 * @return distance in miles between loc 1 and loc2
+	 */
 	public double getDistance(Location loc1, Location loc2) {
         double lat1 = Math.toRadians(loc1.latitude);
         double lon1 = Math.toRadians(loc1.longitude);

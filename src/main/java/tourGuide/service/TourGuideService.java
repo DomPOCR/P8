@@ -72,7 +72,7 @@ public class TourGuideService {
     }
 
     /**
-     * @param
+     *
      * @return all user current locations
      */
 

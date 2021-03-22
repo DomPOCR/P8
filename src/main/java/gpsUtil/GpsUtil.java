@@ -26,13 +26,10 @@ public class GpsUtil {
 
     public VisitedLocation getUserLocation(UUID userId) {
 
-        // TODO test avec et sans rateLimiter
-
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
 
         rateLimiter.acquire();
-//DP        this.sleep();
 
         double longitude = ThreadLocalRandom.current().nextDouble(-180.0D, 180.0D);
         longitude = Double.parseDouble(String.format("%.6f", longitude));
@@ -49,7 +46,7 @@ public class GpsUtil {
 
     public List<Attraction> getAttractions() {
         rateLimiter.acquire();
-//DP        this.sleepLighter();
+
         List<Attraction> attractions = new ArrayList();
         attractions.add(new Attraction("Disneyland", "Anaheim", "CA", 33.817595D, -117.922008D));
         attractions.add(new Attraction("Jackson Hole", "Jackson Hole", "WY", 43.582767D, -110.821999D));
@@ -79,22 +76,4 @@ public class GpsUtil {
         attractions.add(new Attraction("Cinderella Castle", "Orlando", "FL", 28.419411D, -81.5812D));
         return attractions;
     }
-
-////    private void sleep() {
-////        int random = ThreadLocalRandom.current().nextInt(30, 100);
-////
-////        try {
-////            TimeUnit.MILLISECONDS.sleep((long)random);
-////        } catch (InterruptedException var3) {
-////        }
-////
-////    }
-////
-////    private void sleepLighter() {
-////        try {
-////            TimeUnit.MILLISECONDS.sleep(10L);
-////        } catch (InterruptedException var2) {
-////        }
-//
-//    }
 }

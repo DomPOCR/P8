@@ -51,11 +51,11 @@ public class User {
 	}
 	
 	public void setLatestLocationTimestamp(Date latestLocationTimestamp) {
-		this.latestLocationTimestamp = latestLocationTimestamp;
+		this.latestLocationTimestamp = (Date) latestLocationTimestamp.clone();
 	}
 	
 	public Date getLatestLocationTimestamp() {
-		return latestLocationTimestamp;
+		return (Date) latestLocationTimestamp.clone();
 	}
 	
 	public void addToVisitedLocations(VisitedLocation visitedLocation) {
@@ -73,7 +73,8 @@ public class User {
 	public void addUserReward(UserReward userReward) {
 		// DP Correction
 		//if(userRewards.stream().filter(r -> !r.attraction.attractionName.equals(userReward.attraction)).count() == 0) {
-		if(userRewards.stream().filter(r -> r.attraction.attractionName.equals(userReward.attraction)).count() == 0) {
+		//if(userRewards.stream().filter(r -> r.attraction.attractionName.equals(userReward.attraction)).count() == 0) {
+		if(userRewards.stream().filter(r -> r.attraction.attractionName.equals(userReward.attraction.attractionName)).count() == 0) {
 			userRewards.add(userReward);
 		}
 

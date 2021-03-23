@@ -7,13 +7,17 @@ buildscript {
     }
 }
 
+plugins {
+
+   id "com.github.spotbugs" version "1.6.2"
+
+}
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: "jacoco"
-
 
 
 bootJar {
@@ -37,6 +41,7 @@ dependencies {
     compile group: 'org.javamoney', name: 'moneta', version: '1.3'
 	compile group: 'com.jsoniter', name: 'jsoniter', version: '0.9.23'
 
+
     // Libraries move to java code
 
     //compile(name:'gpsUtil', ext:'jar')
@@ -49,6 +54,7 @@ dependencies {
     // Junit 5
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
+
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.2.1.RELEASE'
     testCompile group: 'org.jacoco', name: 'org.jacoco.agent', version: '0.8.6'
     testCompile group: 'org.jacoco', name: 'org.jacoco.ant', version: '0.8.6'

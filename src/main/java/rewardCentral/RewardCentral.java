@@ -14,7 +14,6 @@ import tourGuide.service.TourGuideService;
 
 public class RewardCentral {
 
-    private Logger logger = LoggerFactory.getLogger(TourGuideService.class);
 
     public RewardCentral() {
     }

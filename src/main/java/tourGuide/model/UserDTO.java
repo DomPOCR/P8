@@ -22,7 +22,7 @@ public class UserDTO {
         this.userName = userName;
         this.phoneNumber = phoneNumber;
         this.emailAddress = emailAddress;
-        this.latestLocationTimestamp = latestLocationTimestamp;
+        this.latestLocationTimestamp = (Date) latestLocationTimestamp.clone();
         this.lastVisitedLocation = lastVisitedLocation;
     }
 
@@ -59,11 +59,11 @@ public class UserDTO {
     }
 
     public Date getLatestLocationTimestamp() {
-        return latestLocationTimestamp;
+        return (Date) latestLocationTimestamp.clone();
     }
 
     public void setLatestLocationTimestamp(Date latestLocationTimestamp) {
-        this.latestLocationTimestamp = latestLocationTimestamp;
+        this.latestLocationTimestamp = (Date)latestLocationTimestamp.clone();
     }
 
     public VisitedLocation getLastVisitedLocation() {

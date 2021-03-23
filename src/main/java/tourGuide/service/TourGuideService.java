@@ -21,6 +21,7 @@ import tripPricer.TripPricer;
 
 import javax.money.CurrencyUnit;
 import javax.money.Monetary;
+import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.*;
@@ -40,11 +41,14 @@ public class TourGuideService {
     private final GpsUtil gpsUtil;
     private final RewardsService rewardsService;
     private final TripPricer tripPricer = new TripPricer();
+
     // Database connection will be used for external users, but for testing purposes internal users are provided and stored in memory
     private final Map<String, User> internalUserMap = new HashMap<>();
     boolean testMode = true;
     private Logger logger = LoggerFactory.getLogger(TourGuideService.class);
     private List<UserReward> userRewards;
+
+    private Random random = new Random();
 
     public TourGuideService(GpsUtil gpsUtil, RewardsService rewardsService) {
         this.gpsUtil = gpsUtil;
@@ -279,13 +283,15 @@ public class TourGuideService {
     private double generateRandomLongitude() {
         double leftLimit = -180;
         double rightLimit = 180;
-        return leftLimit + new Random().nextDouble() * (rightLimit - leftLimit);
+        double nextDouble = this.random.nextDouble();
+        return leftLimit + nextDouble * (rightLimit - leftLimit);
     }
 
     private double generateRandomLatitude() {
         double leftLimit = -85.05112878;
         double rightLimit = 85.05112878;
-        return leftLimit + new Random().nextDouble() * (rightLimit - leftLimit);
+        double nextDouble = this.random.nextDouble();
+        return leftLimit + nextDouble * (rightLimit - leftLimit);
     }
 
     private Date getRandomTime() {

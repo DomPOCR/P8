@@ -29,7 +29,7 @@ public class TripPricer {
 
         for (int i = 0; i < 5; ++i) {
             int multiple = ThreadLocalRandom.current().nextInt(100, 700);
-            double childrenDiscount = (double) (children / 3);
+            double childrenDiscount = (double) (children) / 3;
             double price = (double) (multiple * adults) + (double) multiple * childrenDiscount * (double) nightsStay + 0.99D - (double) rewardsPoints;
             if (price < 0.0D) {
                 price = 0.0D;

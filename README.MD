@@ -85,6 +85,6 @@ boby example :
     "numberOfProposalAttraction": 5
 }
 
-## Get Attraction Reward Point
+## Get Attraction Reward Points
 Example : 
 http://localhost:8080//getAttractionRewardPoints?attractionId={{$guid}}&userName=internalUser2

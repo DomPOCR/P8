@@ -37,7 +37,15 @@ To run the app :
 docker run -d -p 8080:8080 tourguide
 ~~~
 
+To stop the app : 
+~~~
+docker stop tourguide
+~~~
 
+To remove the image : 
+~~~
+docker rmi -f tourguide
+~~~
 # URL :
  
 ## Get Location

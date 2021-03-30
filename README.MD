@@ -14,6 +14,7 @@
 - Endpoint : http://localhost:8080/
 
 ## Database Schema (UML)
+![](DiagramModel.png)
 
 ## Prerequisite to run
 

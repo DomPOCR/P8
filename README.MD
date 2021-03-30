@@ -20,7 +20,7 @@
 - Java 1.8 JDK
 - Gradle 5.1
 - Spring Boot 2.2.6
-- Docker 2.5.0.0 (Optional)
+- Docker 20.10.5 (Optional)
 
 ## Run app (localhost:8080)
 

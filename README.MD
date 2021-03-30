@@ -24,7 +24,7 @@
 
 ## Run app (localhost:8080)
 
-
+java -jar Tourguide-0.0.1-SNAPSHOT.jar
 
 ## Containerize
 to build the image
@@ -38,7 +38,7 @@ docker run -d -p 8080:8080 tourguide
 ~~~
 
 
-# Documentation
+# URL :
  
 ## Get Location
 Example : 

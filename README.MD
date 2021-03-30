@@ -56,10 +56,6 @@ GET http://localhost:8080/getLocation?userName=internalUser2
 Example : 
 http://localhost:8080/getNearbyAttractions?userName=internalUser1
 
-## Get Rewards
-Example : 
-http://localhost:8080/getRewards?userName=internalUser2
-
 ## Get All Current Locations
 Example : 
 http://localhost:8080/getAllCurrentLocations?userName=internalUser1
@@ -67,6 +63,10 @@ http://localhost:8080/getAllCurrentLocations?userName=internalUser1
 ## Get Trip Deals
 Example : 
 http://localhost:8080/getTripDeals?userName=internalUser2
+
+## Get User Preference
+Example : 
+http://localhost:8080/getUserPreference?userName=internalUser2
 
 ## Set User Preference
 Example : 
@@ -85,6 +85,6 @@ boby example :
     "numberOfProposalAttraction": 5
 }
 
-## Get User Preference
+## Get Attraction Reward Point
 Example : 
-http://localhost:8080/getUserPreference?userName=internalUser2
+http://localhost:8080//getAttractionRewardPoints?attractionId={{$guid}}&userName=internalUser2

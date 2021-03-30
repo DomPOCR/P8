@@ -59,7 +59,7 @@ http://localhost:8080/getNearbyAttractions?userName=internalUser1
 
 ## Get All Current Locations
 Example : 
-http://localhost:8080/getAllCurrentLocations?userName=internalUser1
+http://localhost:8080/getAllCurrentLocations
 
 ## Get Trip Deals
 Example : 

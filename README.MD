@@ -43,7 +43,7 @@ docker build --build-arg JAR_FILE=build/libs/*.jar -t tourguide .
 
 To run the app : 
 ~~~
-docker run -d -p 8080:8080 -- name tourguide tourguide
+docker run -d -p 8080:8080 tourguide
 ~~~
 
 

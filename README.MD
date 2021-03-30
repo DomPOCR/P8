@@ -7,7 +7,7 @@
     - All users locations at a same time
     - Add user's trip preferences
     - Get user's trip deals
-    - and... user's nearby attractions in real time!
+    - and... user's nearby attractions
 
 ## Getting Started
 

@@ -24,16 +24,7 @@
 
 ## Run app (localhost:8080)
 
-Spring Boot
-~~~
-mvn spring-boot:run (run app)
-mvn spring-boot:stop (stop app)
-~~~~
 
-Gradle
-~~~
-gradle bootRun
-~~~
 
 ## Containerize
 to build the image
@@ -47,5 +38,45 @@ docker run -d -p 8080:8080 tourguide
 ~~~
 
 
-## Documentation
- Documentation Postman [here]()
+# Documentation
+ 
+## Get Location
+Example : 
+GET http://localhost:8080/getLocation?userName=internalUser2
+
+## Get Near By Attractions
+Example : 
+http://localhost:8080/getNearbyAttractions?userName=internalUser1
+
+## Get Rewards
+Example : 
+http://localhost:8080/getRewards?userName=internalUser2
+
+## Get All Current Locations
+Example : 
+http://localhost:8080/getAllCurrentLocations?userName=internalUser1
+
+## Get Trip Deals
+Example : 
+http://localhost:8080/getTripDeals?userName=internalUser2
+
+## Set User Preference
+Example : 
+http://localhost:8080/setUserPreference?userName=internalUser2
+
+boby example :
+{
+    "attractionProximity": 2147483647,
+    "currency": "USD",
+    "lowerPricePoint": 0.0,
+    "highPricePoint": 70000,
+    "tripDuration": 1,
+    "ticketQuantity": 1,
+    "numberOfAdults": 2,
+    "numberOfChildren": 4,
+    "numberOfProposalAttraction": 5
+}
+
+## Get User Preference
+Example : 
+http://localhost:8080/getUserPreference?userName=internalUser2

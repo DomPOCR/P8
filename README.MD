@@ -13,7 +13,7 @@
 
 - Endpoint : http://localhost:8080/
 
-## Database Schema (UML)
+## Database Schema (UML) for user
 ![](DiagramModel.png)
 
 ## Prerequisite to run

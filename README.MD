@@ -26,7 +26,7 @@
 
 java -jar Tourguide-0.0.1-SNAPSHOT.jar
 
-## Containerize
+## Containerize (Docker)
 To build the image
 ~~~
 docker build --build-arg JAR_FILE=build/libs/*.jar -t tourguide .

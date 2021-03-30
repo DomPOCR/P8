@@ -1,4 +1,4 @@
-## TourGuide App TourGuide is a travel app made for families.
+## TourGuide App : TourGuide is a travel app made for families.
 
 ## Purpose
  

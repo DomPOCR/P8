@@ -35,12 +35,12 @@ docker build --build-arg JAR_FILE=build/libs/*.jar -t tourguide .
 
 To run the app : 
 ~~~
-docker run -d -p 8080:8080 tourguide
+docker run -d -p 8080:8080 --name TourGuide tourguide
 ~~~
 
 To stop the app : 
 ~~~
-docker stop tourguide
+docker stop TourGuide
 ~~~
 
 To remove the image : 

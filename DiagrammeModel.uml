@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>tourGuide.model</OriginalElement>
+  <nodes>
+    <node x="0.0" y="555.0">tourGuide.model.UserCurrentLocation</node>
+    <node x="240.0" y="66.0">tourGuide.model.UserReward</node>
+    <node x="498.0" y="0.0">tourGuide.model.UserNearestAttractions</node>
+    <node x="0.0" y="0.0">tourGuide.model.UserPreferences</node>
+    <node x="57.333333333333314" y="280.0">tourGuide.model.User</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="tourGuide.model.User" target="tourGuide.model.UserPreferences">
+      <point x="-100.80000000000004" y="-115.0" />
+      <point x="82.53333333333327" y="260.0" />
+      <point x="36.666666666666686" y="260.0" />
+      <point x="-73.33333333333331" y="115.0" />
+    </edge>
+    <edge source="tourGuide.model.User" target="tourGuide.model.UserReward">
+      <point x="50.39999999999998" y="-115.0" />
+      <point x="233.7333333333333" y="250.0" />
+      <point x="293.25" y="250.0" />
+      <point x="-53.25" y="49.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="353.0" y="277.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

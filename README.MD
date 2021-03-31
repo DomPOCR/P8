@@ -45,7 +45,7 @@ docker stop TourGuide
 
 To remove the image : 
 ~~~
-git staus
+docker rmi -f tourguide
 ~~~
 # URL :
  

@@ -36,3 +36,6 @@ out/
 ### LIB	###
 /lib/
 /libs/
+
+### UML ###
+*.uml

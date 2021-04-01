@@ -10,22 +10,11 @@
     <node x="57.333333333333314" y="280.0">tourGuide.model.User</node>
   </nodes>
   <notes />
-  <edges>
-    <edge source="tourGuide.model.User" target="tourGuide.model.UserPreferences">
-      <point x="-100.80000000000004" y="-115.0" />
-      <point x="82.53333333333327" y="260.0" />
-      <point x="36.666666666666686" y="260.0" />
-      <point x="-73.33333333333331" y="115.0" />
-    </edge>
-    <edge source="tourGuide.model.User" target="tourGuide.model.UserReward">
-      <point x="50.39999999999998" y="-115.0" />
-      <point x="233.7333333333333" y="250.0" />
-      <point x="293.25" y="250.0" />
-      <point x="-53.25" y="49.0" />
-    </edge>
-  </edges>
-  <settings layout="Hierarchic Group" zoom="1.0" x="353.0" y="277.5" />
-  <SelectedNodes />
+  <edges />
+  <settings layout="Hierarchic Group" zoom="1.0" x="361.0" y="326.5" />
+  <SelectedNodes>
+    <node>tourGuide.model.UserCurrentLocation</node>
+  </SelectedNodes>
   <Categories>
     <Category>Fields</Category>
   </Categories>
